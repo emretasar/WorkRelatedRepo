@@ -1,0 +1,62 @@
+CI/CD, which stands for Continuous Integration and Continuous Delivery/Continuous Deployment, is a set of practices and methodologies used in software development and DevOps to automate and streamline the process of building, testing, and deploying software.
+
+Continuous Integration (CI): CI involves regularly integrating code changes from multiple developers into a shared repository. Each integration triggers an automated process, including compiling code, running tests, and generating artifacts. The goal is to detect integration errors early and ensure that the codebase remains stable and functional.
+Continuous Delivery/Continuous Deployment (CD): CD extends CI by automating the deployment of code changes to production environments. In Continuous Delivery, every code change that passes the automated tests is ready for deployment to production but requires manual approval. In Continuous Deployment, changes are automatically deployed to production without manual intervention once they pass all tests.
+
+How it facilitates a programmer's job and why it's important:
+
+Automation: CI/CD automates repetitive tasks such as building, testing, and deploying software, reducing manual effort and human error. Programmers can focus on writing code instead of managing deployment processes, leading to faster and more reliable releases.
+Rapid Feedback: CI/CD provides rapid feedback on code changes by running automated tests and checks after each integration. This helps developers identify and fix issues early in the development cycle, leading to higher-quality software and faster delivery.
+Continuous Improvement: CI/CD fosters a culture of continuous improvement by encouraging frequent, small code changes and automated testing. Developers can iterate more quickly, experiment with new features, and receive immediate feedback, leading to faster innovation and better outcomes for users.
+Reduced Risk: By automating testing and deployment processes, CI/CD helps mitigate the risk of introducing bugs or regressions into production. Changes are thoroughly tested in a controlled environment before being deployed, reducing the likelihood of costly downtime or service disruptions.
+
+In summary, CI/CD streamlines software development and deployment workflows, improves code quality, accelerates time to market, and reduces operational risk. It empowers programmers to deliver value to users more efficiently and with greater confidence.
+
+
+
+CI/CD, yazılım geliştirme süreçlerinde sürekli tekrar eden building, testing, deploying gibi aşamaları otomatikleştirmek ve belirli bir düzene koymak için uygulan yöntemlerin tamamına verilen ad.
+CI, birden fazla geliştiricinin kod değişikliklerinin düzenli olarak ortak bir codebase'e entegre edilmesini içerir. Her değişiklikte/committe, kodun derlenmesi, testlerin yürütülmesi ve artifactlerin oluşturulması gibi aşamaların otomatik olarak gerçekleştirildiği ve tekrarlı şekilde uygulandığı süreçtir. Amaç, entegrasyon hatalarını erken tespit etmek ve kod tabanının istikrarlı ve işlevsel kalmasını sağlamaktır.
+CD ise CI sürecinde elde edilen artifactlerin ürün hattına taşınmasını kapsıyor. Continious Delivery ve Continious Deployment arasındaki fark da şu: Eğer ürün hattına çıkması muhtemel çıktıların hatta çıkarılıp çıkarılmayacağına manuel olarak karar veriliyorsa yani bu karar kullanıcıya bırakılıyorsa bu continious delivery, yok eğer bu da otomatik bir şekilde hatta çıkarılıyorsa bu da continious deployment oluyormuş. 
+
+CI/CD süreçleri bir programcının hayatını nasıl etkiliyor:
+Otomasyon: CI/CD, tekrarlanan görevleri otomatikleştirerek insan hatasını azaltır. Programcılar bu süreçleri manuel yönetmek yerine kod yazmaya odaklanabilir, böylece daha hızlı ve daha güvenilir sürümler elde edilebilir.
+Hızlı Geri Bildirim: CI/CD, her entegrasyondan sonra otomatik testleri vs. çalıştırarak kod değişiklikleri hakkında hızlı geri bildirim sağlar. Bu da, geliştiricilerin sorunları geliştirme döngüsünün başlarında tespit edip düzeltmelerine yardımcı olarak daha yüksek kaliteli yazılım ve daha hızlı teslimat sağlar.
+Sürekli İyileştirme: CI/CD, daha sık, küçük kod değişikliklerini ve otomatik testleri teşvik ederek sürekli iyileştirme kültürünü teşvik eder.
+Riskin Azaltılması: CI/CD, test ve dağıtım süreçlerini otomatikleştirirken değişikliklerin devreye alınmadan önce kontrollü bir ortamda kapsamlı bir şekilde test edilmesine olanak tanıdığı için olası risklerin azaltılmasına yardımcı olur.
+Özetle, CI/CD yazılım geliştirme süreçlerini otomatikleştirerek programcının hızlı feedback almasını, zamandan tasarruf etmesini, kendi işine odaklanmasını ve hızlı ve çok sayıda sürüm çıkarmasını kolaylaştırır.
+
+Build stage'inde derleme yapıyoruz. Kodda yaptığımız bir değişiklikten sonra, kod derleniyor ve çıktı artifactler alınıyor. 
+
+Publish stage'i de şöyle: Bizim Gitlabımızda bir package registry bölümü var. Bu package registry de biz daha önceden derleyip kullanıma hazır hale getirdiğimiz paketlerimizi versiyonlaruyla birlikte tutuyoruz.
+Herhangi birimiz, bir proje üstünde çalışırken de ihtiyaç duyması halinde bu paketleri buradan çekerek kullanıyor. Biz package registry'deki bir paket üzerinde değişiklik yaptığımızda da buradaki paketin güncel tutulmasını istiyoruz. 
+Çünkü başka bir iş üzerinde çalışan kişi bizim yaptığımız değişiklikten habersiz çalıştığında tutarsızlığa sebep olunmuş oluyor. Fazla sayıda da paketimiz var. Eğer biz bu paketleri belirli versiyon numaralarıyla ve güncel olarak tutamazsak tutarsızlıklar katlanarak artmasını bekleriz. 
+Belli bir noktadan sonra da artık işler çok karmaşık bi hal alır ve herkes kendi lokalindeki paketi farklı farklı versiyonlarla tüketmeye çalışır. En sonunda da artık birden fazla kişinin bir arada çalışamaz hale gelmesiyle sonlanır.  
+Böyle bir sonla karşılaşmamak ve herkesin beraber çalışabilmesini sağlamak adına bizim paketlerimizi belirli versiyon numaralarıyla ve güncel tutmamızı sağlayan bir publish stage'imiz var. 
+Publis stage'inin yaptığı iş temelde bu: paketleri herkes için güncel tutmaya yarıyor. 
+Biz herhangi bir pipeline'ı çalıştırdığımızda yaptığımız değişikliklerle birlikte build stage'i tamamlandığında oluşan paketi gitlabtaki package registry'e aktararak paketin en güncel halini herkesin kullanabilmesini sağlıyoruz.
+
+
+Statik analiz, programı çalıştırmaya gerek kalmadan kaynak kodunun otomatik olarak incelenmesiyle yapılan bir hata ayıklama yöntemidir. Bu, geliştiricilerin çalıştırdıkları projede hata oluşturabilecek potansiyel durumları tespit edebilmelerine ve daha güvenli kod yazmalarına olanak verir. 
+Biz de kendi pipeline'larımıza statik analiz stage'ini ekleyerek yazdığımız kodda yapılabilecek muhtemel iyileştirmeleri görebilmeyi istedik. 
+Bunu yaparken de cppecheck, cppcheck-html report ve sonarqube'den faydalandık. 
+Cppcheck C/C++ dilleri için geliştirilmiş bir statik kod analiz aracı. Kendi içinde belirli tanımlanmış rule'ları var ve yazdığımız kodda bu kurallara ne kadar uyulduğunu kontrol ediyor. 
+Cppcheck-HTMLReport cppcheck analiz sonucunu görselleştirilmesi için kullandığımız bir python scripti. Bu scripti de yine cppcheck'in github reposundan hazır olarak bulduk ve kullandık. Cppcheck'in analiz sonucu olarak çıkarttığı XML formatındaki raporu parametre olarak kendisine verdiğimizde bize bize html çıktısı sunuyor. Browser üzerinden biz analiz sonuçlarımızı görüp çeşitli filtrelendirmelere tabi tutabiliyoruz.
+Sonarqube şu an zannediyorum tüm aselsan genelinde de kullanılan bir test analiz aracı. Üzerinde çalışılan kaynak kodların kalitesini değerlendirmek ve iyileştirmek için kullanılıyor. Aslında sonarqube kendisi de statik analiz yapabilen bir araç ama hali hazırda C/C++ üzerinde kullanabilmek için ücretsiz bir seçenek sunmuyor. Ücretli bir seçeneği varmış. Sonarla yaptığımız analizlerde de o yüzden security hotspot olarak geçen güvenlik açıkları gösterilmiyor. Yine de biz neredeyse bütün projelerimizi sonarqube'e aktardık ve orada bütün projelerin analiz sonuçları görülebilir. Ben de göstermiş olayım. 
+Statik analiz stage'inin artifactleri ne de pipelinelar üzerinden ulaşabiliyoruz. 
+
+Unit test, üzerinde çalışılan programda programı oluşturan fonksiyon gibi küçük birimlerin doğru çalışıp çalışmadığını, izole olarak test etmeye verilen isim. Unit test, geliştiricinin arkasındaki teorik mantığa göre belirli bir kod bloğunun beklendiği gibi çalışıp çalışmadığını kontrol etmek için tasarlanmıştır. Biz de yapılan her değişiklikten sonra sürekli olarak güncel kodun doğru çalışıp çalışmadığını görebilmek adına Unit Test'i pipelinelara entegre etmek istedik. Çeşitli unit testing araçlarının içinde de Google Test'i tercih ettik.
+Çünkü gitlabla uyumlu çalışabiliyor. Arkasında google desteği var. Geniş bir community tarafından kullanılıyor. Çeşitli işletim sistemlerinde cross paltform olarak çalışabiliyor. 
+Unit test coverage, unit test sırasında test edilen kodun ne kadarının üzerinden geçildiğinin ölçüsü. Yazdığımız birim testlerin kodumuzun ne kadarını kapsadığını bize söylüyor.
+Biz de unit testle birlikte code coverage'ın da pipeline üzerinden değerlendirilmesini ve görülebilir olmasını istediğimiz için code coverage da pipeline'lara eklemeye çalıştık. Bunun için de gcov'dan faydalandık. 
+Gcov hali hazırda gcc ile birlikte gelen bir executable. mingw'nin bin klasöründe gcc.exe ya da g++.exe ile beraber bir de gcov.exe var. bu executable sayesinde code coverage değerlendirilmesi yapılabiliyor. Derlerken ve unit test sonucu çıkan executable'ı çalıştırırken belirli flagleri kullanarak code coverage yaptırıyoruz. Bu aşamalarda verdiğimiz flaglerden sonra çeşitli artifact dosylar oluşuyor. Bu dosyaların olduğu dizinde gcov'u çalıştırdığımızda bize html raporları oluşturuyor. 
+ 
+ATA Test Otomasyonu
+
+
+Downstream pipelines: Başka bir pipeline tarafından tetiklenen pipelinelara downstream pipeline deniyor. Downstream pipelinelar kendilerini tetikleyen pipelinedan bağımsız ve eş zamanlı olarak çalıştırılıyorlar. Downstream Pipelinelar ikiye ayrılıyor:
+Parent-Child Pipelines: Downstream pipelinelar ile bu pipelineları tetikleyen pipeline aynı proje içerisinde yer alıyorsa bu downstream pipelinelara parent-child pipelinelar deniliyor.
+Multiproject Pipelines: Downstream pipelinelar ile bu pipelineları tetikleyen pipeline farklı proje içerisinde yer alıyorsa bu downstream pipelinelara multiproject pipelinelar deniliyor. 
+
+Modularization: Pipelinelarımızı daha küçük ve daha spesifik amaçlara yönelik bileşenlere ayırmamızı sağladıkları için daha modüler bir yaklaşım sunmalarını bekleriz. Yaml dosyamızın şişmesini önler.
+Reusability: Eğer spesifik amaca yönelik bir child pipeline birden fazla yerde kullanılması gerekirse daha önceden yazdığımız yaml dosyamızı işaret ederek tekrar tekrar bu pipeline'ı çalıştrıabiliriz. Tekrar kullanılabilirlik sunar.
+Isolation: Birbirinden bağımsız katmanlar için ayrı ayrı pipelinelar işletebilmemizi sağlar. Değişiklik yapmadığımız halde tekrar çalıştırılarak pipeline'a yük bindirin aşamalardan bizi kurtarabilir.
